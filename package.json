@@ -1,7 +1,7 @@
 {
   "name": "data-driven-motion",
   "amdName": "DataDrivenMotion",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Easily animate your data in react",
   "main": "dist/data-driven-motion.js",
   "umd:main": "dist/data-driven-motion.min.js",
