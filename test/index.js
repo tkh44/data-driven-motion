@@ -11,7 +11,7 @@ describe('data-driven-motion', () => {
   it('works', done => {
     expect(() => TestUtils.renderIntoDocument(
       h(Motion, {
-        data: [{ name: 'bob', username: 'bob199', top: 1, left: 1, offsetY: 1 }],
+        data: [{ name: 'bob', username: 'bob1', top: 1, left: 1, offsetY: 1 }],
         component: h('ul'),
         getKey: data => {
           return data.name
