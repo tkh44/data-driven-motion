@@ -6,18 +6,7 @@ const DataDrivenMotion = require('../src/index')
 
 const { PropTypes, Component, createElement: h } = React
 const { Motion } = DataDrivenMotion
-const a = (
-<Motion
-  data={[]}
-  component={<ul style={{ padding: 8 }} />}
-  render={(key, data, style) => <li key={key} style={style}>{data.name}</li>}
-  getKey={data => data.name}
-  oncomponentmount={data => ({ top: data.top, left: data.left })}
-  onRender={(data, i, spring) => ({ top: spring(data.top), left: spring(data.left) })}
-  onRemount={data => ({ top: data.top - 32, left: data.left - 32 })}
-  onUnmount={(data, spring) => ({ top: spring(data.top + 32), left: spring(data.left + 32) })}
-/>
-)
+
 describe('data-driven-motion', () => {
   it('works', done => {
     expect(() => TestUtils.renderIntoDocument(
