@@ -17,7 +17,7 @@ npm install -S data-driven-motion
 
 ## Motion
 
-```jsx harmony
+```jsx
 <Motion
   data={[]}
   component={<ul style={{ padding: 8 }} />}
