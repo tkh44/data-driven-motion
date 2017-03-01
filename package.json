@@ -1,0 +1,78 @@
+{
+  "name": "data-driven-motion",
+  "amdName": "DataDrivenMotion",
+  "version": "0.0.1",
+  "description": "Easily animate your data in react",
+  "main": "dist/data-driven-motion.js",
+  "umd:main": "dist/data-driven-motion.min.js",
+  "jsnext:main": "src/index.js",
+  "files": [
+    "src",
+    "test",
+    "dist"
+  ],
+  "scripts": {
+    "test": "standard src test && node node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --compilers js:babel-register --require test/setup.js --report lcovonly test/index.js -- -R spec",
+    "test:html": "standard src test && node node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --require test/setup.js --report html test/index.js -- -R spec",
+    "build": "npm-run-all clean -p rollup:* -p minify:* -s size",
+    "clean": "rimraf dist && mkdirp dist",
+    "rollup:cjs": "rollup -c rollup.config.js -m -f cjs -n $npm_package_amdName $npm_package_jsnext_main -o $npm_package_main",
+    "rollup:umd": "rollup -c rollup.config.js -m -f umd -n $npm_package_amdName $npm_package_jsnext_main -o $npm_package_umd_main",
+    "minify:cjs": "uglifyjs $npm_package_main -cm toplevel -o $npm_package_main -p relative --in-source-map ${npm_package_main}.map --source-map ${npm_package_main}.map",
+    "minify:umd": "uglifyjs $npm_package_umd_main -cm -o $npm_package_umd_main -p relative --in-source-map ${npm_package_umd_main}.map --source-map ${npm_package_umd_main}.map",
+    "size": "echo \"Gzipped Size: $(strip-json-comments --no-whitespace $npm_package_main | gzip-size | pretty-bytes)\"",
+    "release": "npm run build -s && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0-0",
+    "react-motion": "^0.4.7"
+  },
+  "devDependencies": {
+    "expect": "^1.20.2",
+    "gzip-size-cli": "^1.0.0",
+    "istanbul": "^0.4.5",
+    "jsdom": "^9.8.3",
+    "mocha": "^3.1.2",
+    "npm-run-all": "^4.0.1",
+    "pretty-bytes-cli": "^2.0.0",
+    "react": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-motion": "^0.4.7",
+    "rimraf": "^2.5.4",
+    "rollup": "^0.41.4",
+    "rollup-plugin-buble": "^0.15.0",
+    "standard": "^8.5.0",
+    "strip-json-comments-cli": "^1.0.1",
+    "uglify-js": "^2.7.4",
+    "undom": "latest"
+  },
+  "author": "Kye Hohenberger",
+  "homepage": "https://github.com/tkh44/data-driven-motion#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tkh44/data-driven-motion.git"
+  },
+  "keywords": [
+    "react",
+    "react-motion",
+    "animtion",
+    "react-animation",
+    "data",
+    "driven",
+    "motion"
+  ],
+  "standard": {
+    "ignore": [
+      "/dist/"
+    ]
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "bugs": {
+    "url": "https://github.com/tkh44/data-driven-motion/issues"
+  }
+}

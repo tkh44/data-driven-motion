@@ -1,0 +1,8 @@
+/coverage
+/demo/dist
+/dist
+/lib
+/node_modules
+/umd
+npm-debug.log
+.idea
