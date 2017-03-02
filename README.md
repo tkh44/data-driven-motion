@@ -3,6 +3,7 @@
 [![npm version](https://badge.fury.io/js/data-driven-motion.svg)](https://badge.fury.io/js/data-driven-motion)
 [![Build Status](https://travis-ci.org/tkh44/data-driven-motion.svg?branch=master)](https://travis-ci.org/tkh44/data-driven-motion)
 [![codecov](https://codecov.io/gh/tkh44/data-driven-motion/branch/master/graph/badge.svg)](https://codecov.io/gh/tkh44/data-driven-motion)
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://img.shields.io/badge/code_style-standard-brightgreen.svg)
 
 
 

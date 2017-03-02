@@ -4,14 +4,14 @@ const expect = require('expect')
 const TestUtils = require('react-addons-test-utils')
 const DataDrivenMotion = require('../src/index')
 
-const {PropTypes, Component, createElement: h} = React
-const {Motion} = DataDrivenMotion
+const { createElement: h } = React
+const { Motion } = DataDrivenMotion
 
 describe('data-driven-motion', () => {
   it('works', done => {
     expect(() => TestUtils.renderIntoDocument(
       h(Motion, {
-        data: [{name: 'bob', username: 'bob1', top: 1, left: 1, offsetY: 1}],
+        data: [{ name: 'bob', username: 'bob1', top: 1, left: 1, offsetY: 1 }],
         component: h('ul'),
         getKey: data => {
           return data.name
@@ -32,7 +32,7 @@ describe('data-driven-motion', () => {
             translateY: spring(data.offsetY)
           }
         },
-        onRemount: ({key, data, style}) => {
+        onRemount: ({ key, data, style }) => {
           return {
             top: data.top,
             left: data.left,
@@ -40,7 +40,7 @@ describe('data-driven-motion', () => {
             translateY: data.offsetY
           }
         },
-        onUnmount: ({key, data, style}, spring) => {
+        onUnmount: ({ key, data, style }, spring) => {
           return {
             top: spring(data.top),
             left: spring(data.left),
@@ -68,4 +68,3 @@ describe('data-driven-motion', () => {
     done()
   })
 })
-

@@ -11,12 +11,12 @@
     "umd"
   ],
   "scripts": {
-    "build": "nwb build-react-component --no-demo",
+    "build": "standard --fix && nwb build-react-component --no-demo",
     "clean": "nwb clean-module && npm clean-demo",
     "start": "nwb serve-react-demo",
-    "test": "nwb test-react",
-    "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server"
+    "test": "standard --fix && nwb test-react",
+    "test:coverage": "standard --fix && nwb test-react --coverage",
+    "test:watch": "standard --fix && nwb test-react --server"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -25,10 +25,12 @@
   },
   "devDependencies": {
     "nwb": "0.15.x",
+    "prettier": "^0.20.0",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-motion": "^0.4.7"
+    "react-motion": "^0.4.7",
+    "standard": "^9.0.0"
   },
   "author": "Kye Hohenberger",
   "homepage": "https://github.com/tkh44/data-driven-motion#readme",
