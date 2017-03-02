@@ -1,10 +1,8 @@
-const React = require('react')
-const ReactMotion = require('react-motion')
+import { PureComponent, PropTypes, cloneElement, createElement as h } from 'react'
+import TransitionMotion from 'react-motion/lib/TransitionMotion'
+import spring from 'react-motion/lib/spring'
 
-const { PropTypes, PureComponent, cloneElement, createElement: h } = React
-const { TransitionMotion, spring } = ReactMotion
-
-class Motion extends PureComponent {
+export class Motion extends PureComponent {
   constructor (props) {
     super(props)
 
@@ -36,14 +34,14 @@ class Motion extends PureComponent {
         children[i] = new Array(currentStyles.length)
         for (let j = 0; j < currentStyles.length; ++j) {
           const { key, data, style } = currentStyles[j]
-          children[i][j] = render[i](key, data, style, j)
+          children[i][j] = render[i](key, data, style, j, i)
         }
       }
     } else {
       children = new Array(currentStyles.length)
       for (let j = 0; j < currentStyles.length; ++j) {
         const { key, data, style } = currentStyles[j]
-        children[j] = render(key, data, style, j)
+        children[j] = render(key, data, style, j, 0)
       }
     }
 
@@ -105,10 +103,12 @@ Motion.defaultProps = {
 Motion.propTypes = {
   // wrapper element ex: <div/>
   component: PropTypes.element,
+
   // array of data
   data: PropTypes.array,
+
   // (key, data, style) => ReactElement
-  // called once render for each item in `data` with the key from `getKey`, `data` from `data[index]`, and
+  // called on render for each item in `data` with the key from `getKey`, `data` from `data[index]`, and
   // `style`, the result of: `onComponentMount`, `onRender`, `onRemount`, or `onUnmount`
   //
   // If an array is provided it will render the resulting elements in order.
@@ -128,17 +128,17 @@ Motion.propTypes = {
 
   // (data, i, spring) => Style object
   // data === props.data[i]
-  // called when `component` mounts
-  // do not wrap values in springs
+  // called on every render
+  // ok to wrap values in springs
   onRender: PropTypes.func,
+
   // ({ data }, i) => Style object
   // data === props.data[i]
   // do not wrap values in springs
   onRemount: PropTypes.func,
+
   // ({ data }, i, spring) => Style object
   // data === props.data[i]
-  // do not wrap values in springs
+  // ok to wrap values in springs
   onUnmount: PropTypes.func
 }
-
-exports.Motion = Motion
