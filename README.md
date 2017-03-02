@@ -31,10 +31,6 @@ npm install -S data-driven-motion
 />
 ```
 
-**It does not matter what `data` contains, as long as it is an array**
-
-
-
 ### Props
 
 #### component: `PropTypes.element`
@@ -45,6 +41,7 @@ ex: `<div/>`
 #### data: `PropTypes.array`
 array of data
 
+**It does not matter what `data` contains, as long as it is an array**
 
 #### render: `PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)])`
 `(key, data, style) => ReactElement`
