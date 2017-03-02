@@ -30,6 +30,10 @@ npm install -S data-driven-motion
 />
 ```
 
+**It does not matter what `data` contains, as long as it is an array**
+
+
+
 ### Props
 
 #### component: `PropTypes.element`
@@ -44,7 +48,7 @@ array of data
 #### render: `PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)])`
 `(key, data, style) => ReactElement`
 
-called once render for each item in `data` with the key from `getKey`, `data` from `data[index]`, and
+called on render for each item in `data` with the `key` from `getKey`, `data` from `data[index]`, and
 `style`, the result of: `onComponentMount`, `onRender`, `onRemount`, or `onUnmount`
 
 If an array is provided it will render the resulting elements in order.
@@ -64,7 +68,8 @@ https://facebook.github.io/react/docs/lists-and-keys.html
 `data === props.data[i]`
 
 called when `component` mounts
-do not wrap values in springs
+
+__do not wrap values in springs__
 
 
 #### onRender: `PropTypes.func`
@@ -72,8 +77,9 @@ do not wrap values in springs
 
 `data === props.data[i]`
 
-called when `component` mounts
-do not wrap values in springs
+called when `props.component` mounts
+
+__ok to wrap values in springs__
 
 
 #### onRemount: `PropTypes.func`
@@ -84,7 +90,7 @@ do not wrap values in springs
 
 The argument is the computed config from `onRender` 
 
-do not wrap values in springs
+__do not wrap values in springs__
 
 
 #### onUnmount: `PropTypes.func`
@@ -93,12 +99,26 @@ do not wrap values in springs
 
 *Notice the argument is wrapped in an object*
 
-The argument is the computed config from `onRender`
+The argument is the computed config from `onRender`. 
 
-do not wrap values in springs
+__ok to wrap values in springs__
 
 
-### Example
+### Single Element Entry/Exit
+```jsx
+<Motion
+  data={this.state.show ? [this.props] : []}
+  component={<div style={{ padding: 8 }} />}
+  render={(key, data, style) => <div key={key} style={style} {...data} />}
+  getKey={(data, i) => i}
+  onComponentMount={()) => ({ opacity: 0 })}
+  onRender={(data, i, spring) => ({ opacity: spring(1) })}
+  onRemount={() => ({ opacity: 0 })}
+  onUnmount={(config, spring) => ({ opacity: spring(0) })}
+/>
+```
+
+### List Example
 ```javascript
 import { createElement as h, Component } from 'react'
 import { Motion } from 'data-driven-motion'
