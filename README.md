@@ -17,7 +17,8 @@ npm install -S data-driven-motion
 ```
 
 ## Demos
-* [List Demo](https://jsfiddle.net/tkh44/vmkjuam4/)
+* [List demo](https://jsfiddle.net/tkh44/vmkjuam4/)
+* [List demo with multiple layers](https://jsfiddle.net/tkh44/vmkjuam4/2/)
 
 ## Motion
 
