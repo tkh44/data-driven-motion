@@ -7,6 +7,7 @@ export class Motion extends PureComponent {
     super(props)
 
     this.renderCurrentStyles = this.renderCurrentStyles.bind(this)
+    this.getKey = this.getKey.bind(this)
     this.getDefaultStyles = this.getDefaultStyles.bind(this)
     this.getStyles = this.getStyles.bind(this)
     this.willLeave = this.willLeave.bind(this)
@@ -14,11 +15,13 @@ export class Motion extends PureComponent {
   }
 
   render () {
+    const { data, onRemount, onUnmount, onComponentMount } = this.props
+
     return h(TransitionMotion, {
-      defaultStyles: this.getDefaultStyles(),
+      defaultStyles: data.length && onComponentMount ? this.getDefaultStyles() : undefined,
       styles: this.getStyles(),
-      willEnter: this.willEnter,
-      willLeave: this.willLeave,
+      willEnter: onRemount && this.willEnter,
+      willLeave: onUnmount && this.willLeave,
       children: this.renderCurrentStyles
     })
   }
@@ -46,6 +49,15 @@ export class Motion extends PureComponent {
     }
 
     return cloneElement(component, { children })
+  }
+
+  getKey (data, i) {
+    const { getKey } = this.props
+    if (typeof getKey === 'function') {
+      return getKey(data, i)
+    }
+
+    return getKey
   }
 
   getDefaultStyles () {
