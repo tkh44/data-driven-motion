@@ -196,3 +196,150 @@ export default class ListWrapper extends Component {
   }
 }
 ```
+
+### React Router v4 AnimatedSwitch Example
+
+_forked from React Router site basic demo_
+```jsx
+import React from 'react'
+import { BrowserRouter as Router, Route, Link, Redirect, matchPath } from 'react-router-dom'
+import { Motion } from 'data-driven-motion'
+
+const WOBBLY_SPRING = { stiffness: 200, damping: 15, precision: 0.1 }
+
+const AnimationExample = () => (
+  <Router>
+    <div>
+      <ul>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/about'>About</Link></li>
+        <li><Link to='/topics'>Topics</Link></li>
+      </ul>
+
+      <hr />
+      <AnimatedSwitch style={{ position: 'relative' }}>
+        <AnimatedRoute exact path='/' component={Home} />
+        <AnimatedRoute path='/about' component={About} />
+        <AnimatedRoute path='/topics' component={Topics} />
+      </AnimatedSwitch>
+    </div>
+  </Router>
+)
+
+const Home = ({ style }) => (
+  <div style={style}>
+    <h2>Home</h2>
+    <p>
+      All of these examples can be copy pasted into an app created with create-react-app. Just paste the code into
+      src/App.js of your project.
+    </p>
+  </div>
+)
+
+const About = ({ style }) => (
+  <div style={style}>
+    <h2>About</h2>
+    <p>
+      Components are the heart of React's powerful, declarative programming model. React Router is a collection of
+      navigational components that compose naturally with your application. Whether you want to have bookmarkable URLs
+      for your web app or a composable way to navigate in React Native, React Router works wherever React is rendering.
+    </p>
+  </div>
+)
+
+const Topics = ({ match, style }) => (
+  <div style={{ ...style, height: '100%' }}>
+    <h2>Topics</h2>
+    <ul style={{ padding: 0, listStyle: 'none' }}>
+      <li><Link to={`${match.url}/rendering`}>Rendering with React</Link></li>
+      <li><Link to={`${match.url}/components`}>Components</Link></li>
+      <li><Link to={`${match.url}/props-v-state`}>Props v. State</Link></li>
+    </ul>
+    <AnimatedSwitch style={{ position: 'relative' }}>
+      <AnimatedRoute
+        path={`${match.url}/:topicId`}
+        component={Topic}
+        getKey={({ match, location }) => {
+          return match.url + match.params.topicId
+        }}
+      />
+      <AnimatedRoute exact path={match.url} component={SelectTopic} />
+    </AnimatedSwitch>
+  </div>
+)
+
+const Topic = ({ match, location, style }) => {
+  return (
+    <div style={style}>
+      <h3>{match.params.topicId}</h3>
+    </div>
+  )
+}
+
+const SelectTopic = ({ style }) => <h3 style={style}>Please select a topic.</h3>
+
+class AnimatedSwitch extends React.Component {
+  render () {
+    const { children, style } = this.props
+    const location = this.props.location || this.context.route.location
+    let match, child
+    React.Children.forEach(children, element => {
+      if (match == null) {
+        child = element
+        match = matchPath(location.pathname, element.props)
+      }
+    })
+
+    return (
+      <Motion
+        data={match ? [{ location, match, child }] : []}
+        component={<div style={style} />}
+        render={(key, data, style) => {
+          return React.cloneElement(data.child, {
+            key,
+            location: data.location,
+            computedMatch: data.match,
+            style: {
+              transform: `translate3d(0, ${style.y}%, 0)`,
+              opacity: style.o
+            }
+          })
+        }}
+        getKey={({ child, location, match }) => {
+          return child.props.getKey // param values used when generating keys
+            ? child.props.getKey({ location, match })
+            : child.props.path || child.props.from
+        }}
+        onComponentMount={data => ({ y: 50, o: 0.75 })}
+        onRender={(data, i, spring) => ({
+          y: spring(0, WOBBLY_SPRING),
+          o: spring(1)
+        })}
+        onRemount={({ data: { child } }) => ({ y: 5, o: 0 })}
+        onUnmount={({ data: { child } }, spring) => ({
+          y: spring(20, WOBBLY_SPRING),
+          o: spring(0)
+        })}
+      />
+    )
+  }
+}
+
+AnimatedSwitch.contextTypes = {
+  route: React.PropTypes.object.isRequired
+}
+
+const AnimatedRoute = ({ component: Component, style, getKey, ...rest }) => (
+  <Route
+    {...rest}
+    render={props => (
+      <Component
+        {...props}
+        style={{ position: 'absolute', left: 0, top: 0, ...props.style, ...style }}
+      />
+    )}
+  />
+)
+
+export default AnimationExample
+```
