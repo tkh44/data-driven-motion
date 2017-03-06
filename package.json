@@ -18,10 +18,11 @@
     "test:coverage": "standard --fix && nwb test-react --coverage",
     "test:watch": "standard --fix && nwb test-react --server"
   },
-  "dependencies": {},
-  "peerDependencies": {
-    "react": "15.x",
+  "dependencies": {
     "react-motion": "^0.4.7"
+  },
+  "peerDependencies": {
+    "react": "15.x"
   },
   "devDependencies": {
     "nwb": "0.15.x",
