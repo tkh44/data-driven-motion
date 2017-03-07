@@ -1,6 +1,6 @@
 {
   "name": "data-driven-motion",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Easily animate your data in react",
   "main": "lib/index.js",
   "module": "es/index.js",
