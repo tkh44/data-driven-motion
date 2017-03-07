@@ -48,7 +48,7 @@ export class Motion extends PureComponent {
       }
     }
 
-    return cloneElement(component, { children })
+    return cloneElement(component, {}, children)
   }
 
   getKey (data, i) {
