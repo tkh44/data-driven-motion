@@ -119,7 +119,6 @@ const AnimationExample = () => (
           justifyContent: 'flex-start',
           paddingRight: 16,
           paddingLeft: 16,
-          background: colors.gray[1],
           height: 48
         }}
       >
