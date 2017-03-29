@@ -12,7 +12,7 @@ import Loading from './Loading'
 import { Motion } from '../../src'
 import colors from 'open-color'
 
-const WOBBLY_SPRING = { stiffness: 200, damping: 15, precision: 0.1 }
+const WOBBLY_SPRING = { stiffness: 350, damping: 15, precision: 0.1 }
 
 const ApiDocs = crate.asyncCompile({
   loader: () => import('./docs/Api'),
@@ -172,4 +172,4 @@ const AnimatedRoute = ({ component: Component, style, getKey, ...rest }) => {
   )
 }
 
-export default crate.withRebass().compile(AnimationExample)
+export default AnimationExample
