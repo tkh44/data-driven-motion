@@ -2,46 +2,10 @@
 import React, { Component, PureComponent } from 'react'
 import { Motion } from '../../../src'
 import Demo from '../Demo'
-import { stack } from 'd3-shape'
-import { scaleLinear, interpolateCool } from 'd3-scale'
-import { min, max, range, transpose } from 'd3-array'
+import { scaleLinear } from 'd3-scale'
+import { min, max } from 'd3-array'
 import { randomUniform } from 'd3-random'
-const WOBBLY_SPRING = { stiffness: 150, damping: 15 }
-
-const n = 20
-const m = 20
-const k = 10
-
-// Inspired by Lee Byron’s test data generator.
-function bumps (n, m) {
-  const a = []
-  let i
-  for (i = 0; i < n; ++i) {
-    a[i] = 0
-  }
-  for (i = 0; i < m; ++i) {
-    bump(a, n)
-  }
-  return a
-}
-
-function bump (a, n) {
-  const x = 1 / (0.1 + Math.random())
-  const y = 2 * Math.random() - 0.5
-  const z = 10 / (Math.random())
-  for (let i = 0; i < n; i++) {
-    const w = (i / n - y) * z
-    a[i] += x * Math.exp(-w * w)
-  }
-}
-
-function stackMax (layer) {
-  return max(layer, d => d[1])
-}
-
-function stackMin (layer) {
-  return min(layer, d => d[0])
-}
+const WOBBLY_SPRING = { stiffness: 60, damping: 15 }
 
 const radiusGenerator = randomUniform(2, 8)
 function randomRadius () {
@@ -50,14 +14,14 @@ function randomRadius () {
 
 const width = 800
 const height = 450
-const graphStack = stack().keys(range(n))
 
 class Scatterplot extends PureComponent {
   render () {
-    const { layers } = this.props
-    const maxY = max(layers, stackMax)
-    const minY = min(layers, stackMin)
-    const xScale = scaleLinear().domain([0, m - 1]).range([0, width])
+    const { points } = this.props
+    const maxY = max(points, d => d[1])
+    const minY = min(points, d => d[1])
+    const maxX = max(points, d => d[0])
+    const xScale = scaleLinear().domain([0, maxX]).range([0, width])
     const yScale = scaleLinear().domain([minY, maxY]).range([height, 0])
 
     return (
@@ -67,19 +31,14 @@ class Scatterplot extends PureComponent {
         height={height}
         style={{ width: '100%', height: '100%' }}
       >
-        {layers.map((d, i) => {
-          return (
-            <Layer
-              data={d}
-              key={'layer' + i}
-              xScale={xScale}
-              yScale={yScale}
-              minY={minY}
-              maxY={maxY}
-              index={i}
-            />
-          )
-        })}
+        <Layer
+          data={points}
+          xScale={xScale}
+          yScale={yScale}
+          minY={minY}
+          maxY={maxY}
+          maxX={maxX}
+        />
       </svg>
     )
   }
@@ -101,7 +60,7 @@ class Layer extends Component {
     )
   }
 
-  getKey = (data, i) => i + '-' + this.props.index;
+  getKey = (data, i) => i + '-' + (randomUniform(1, 2)() | 0);
 
   onCpm = (data, i) => {
     return {
@@ -134,8 +93,8 @@ class Layer extends Component {
     return {
       opacity: spring(0),
       r: spring(0),
-      x: spring(this.props.xScale(m - 1), WOBBLY_SPRING),
-      y: spring(this.props.yScale(this.props.maxY), WOBBLY_SPRING)
+      x: spring(this.props.xScale(this.props.maxX), WOBBLY_SPRING),
+      y: spring(this.props.yScale(this.props.minY), WOBBLY_SPRING)
     }
   };
 
@@ -146,7 +105,7 @@ class Layer extends Component {
         r={style.r}
         cx={style.x}
         cy={style.y}
-        fill={interpolateCool(this.props.index / this.props.data.length)}
+        fill={`hsl(${dataIndex % 360}, 100%, 71%)`}
         fillOpacity={style.opacity}
       />
     )
@@ -158,12 +117,17 @@ export default class extends Component {
     super(props)
 
     this.state = {
-      layers: this.generateLayers()
+      points: this.generateLayers(5)
     }
   }
 
   componentDidMount () {
-    this.interval = window.setInterval(() => this.setState({layers: this.generateLayers()}), 1000)
+    this.interval = window.setInterval(
+      () => {
+        return this.setState({ points: this.generateLayers(randomUniform(1, 360)() | 0) })
+      },
+      1000
+    )
   }
 
   componentWillUnmount () {
@@ -173,24 +137,23 @@ export default class extends Component {
   render () {
     return (
       <Demo>
-        {/*<button*/}
-          {/*style={buttonStyle}*/}
-          {/*onClick={() => this.setState({ layers: this.generateLayers() })}*/}
-        {/*>*/}
-          {/*Update*/}
-        {/*</button>*/}
-        <Scatterplot layers={this.state.layers} />
+        <div style={buttonStyle}>
+          {`Animating ${this.state.points.length} circle elements`}
+        </div>
+        <Scatterplot points={this.state.points} />
       </Demo>
     )
   }
 
-  generateLayers = () => graphStack(transpose(range(n).map(() => bumps(m, k)))).map((d) => {
-    return d.map((point) => {
-      point.data = {}
-      point.radius = randomRadius()
-      return point
-    })
-  });
+  generateLayers = itemCount => {
+    let points = []
+    for (let i = itemCount; i > -1; i--) {
+      points[i] = [i, Math.random() * 100 | 0]
+      points[i].radius = randomRadius()
+    }
+
+    return points
+  };
 }
 
 const buttonStyle = {
@@ -199,12 +162,11 @@ const buttonStyle = {
   right: 8,
   backgroundColor: 'transparent',
   color: '#37b24d',
-  border: '1px solid currentColor',
+  fontWeight: 'bold',
   borderRadius: 4,
   height: 32,
   lineHeight: 2.5,
   paddingLeft: 16,
   paddingRight: 16,
-  outline: 'none',
-  cursor: 'pointer'
+  outline: 'none'
 }
