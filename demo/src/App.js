@@ -74,7 +74,7 @@ const DemosPage = ({ style }) => (
   <div style={style} className={'demo-page markdown-body scrollable'}>
     <div className={'demo-page-inner'}>
       <h3>
-        Scatter Plot
+        Scatter Plot (1 - 1k elements)
         <a
           href='https://github.com/tkh44/data-driven-motion/blob/master/demo/src/demos/Scatterplot.js'
           target={'_blank'}
