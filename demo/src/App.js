@@ -11,6 +11,8 @@ import crate from './crate'
 import Loading from './Loading'
 import { Motion } from '../../src'
 import colors from 'open-color'
+import TrippyDemo from './demos/Trippy'
+import ListDemo from './demos/List'
 
 const WOBBLY_SPRING = { stiffness: 350, damping: 15, precision: 0.1 }
 
@@ -20,17 +22,17 @@ const ApiDocs = crate.asyncCompile({
   delay: 200
 })
 
-const TrippyDemo = crate.asyncCompile({
-  loader: () => import('./demos/Trippy'),
-  LoadingComponent: Loading,
-  delay: 200
-})
-
-const ListDemo = crate.asyncCompile({
-  loader: () => import('./demos/List'),
-  LoadingComponent: Loading,
-  delay: 200
-})
+// const TrippyDemo = crate.asyncCompile({
+//   loader: () => import('./demos/Trippy'),
+//   LoadingComponent: Loading,
+//   delay: 200
+// })
+//
+// const ListDemo = crate.asyncCompile({
+//   loader: () => import('./demos/List'),
+//   LoadingComponent: Loading,
+//   delay: 200
+// })
 
 const HomePage = ({ style }) => {
   return (
