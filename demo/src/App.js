@@ -82,7 +82,7 @@ const DemosPage = ({ style }) => (
 )
 
 const AnimationExample = () => (
-  <Router basename={'/data-driven-motion'}>
+  <Router>
     <div className={'full'}>
       <header
         style={{
