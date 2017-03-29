@@ -1,4 +1,4 @@
-import 'github-markdown-css'
+
 import React from 'react'
 import {
   HashRouter as Router,
@@ -31,6 +31,55 @@ const ListDemo = crate.asyncCompile({
   LoadingComponent: Loading,
   delay: 200
 })
+
+const HomePage = ({ style }) => {
+  return (
+    <div style={style} className={'home-page markdown-body scrollable'}>
+      <div className={'home-page-inner'}>
+        <h2>data-driven-motion</h2>
+        <p>Easily animate your data in react</p>
+        <pre>
+          npm install -S data-driven-motion
+        </pre>
+        <ul
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            listStyle: 'none',
+            flex: '1 0 auto'
+          }}
+        >
+          <li>
+            <Link to='/demos'>Demos</Link>
+          </li>
+          <li><Link to='/docs'>Docs</Link></li>
+          <li>
+            <a
+              href='https://github.com/tkh44/data-driven-motion'
+              target={'_blank'}
+            >
+              Github
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+const DemosPage = ({ style }) => (
+  <div style={style} className={'demo-page markdown-body scrollable'}>
+    <div className={'demo-page-inner'}>
+      <h2>Demos</h2>
+      <h3>Trippy Perspective</h3>
+      <TrippyDemo />
+      <hr />
+      <h3>List with multiple layers</h3>
+      <ListDemo />
+    </div>
+  </div>
+)
 
 const AnimationExample = () => (
   <Router basename={'/data-driven-motion'}>
@@ -73,25 +122,12 @@ const AnimationExample = () => (
         </ul>
       </header>
       <AnimatedSwitch style={{ position: 'relative' }}>
-        <AnimatedRoute exact path='/' component={DemosPage} />
+        <AnimatedRoute exact path='/' component={HomePage} />
         <AnimatedRoute path='/demos' component={DemosPage} />
         <AnimatedRoute path='/docs' component={ApiDocs} />
       </AnimatedSwitch>
     </div>
   </Router>
-)
-
-const DemosPage = ({ style }) => (
-  <div style={style} className={'demo-page markdown-body scrollable'}>
-    <div className={'demo-page-inner'}>
-      <h2>Demos</h2>
-      <h3>Trippy Perspective</h3>
-      <TrippyDemo />
-      <hr />
-      <h3>List with multiple layers</h3>
-      <ListDemo />
-    </div>
-  </div>
 )
 
 const AnimatedSwitch = withRouter(

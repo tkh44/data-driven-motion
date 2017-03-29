@@ -1,6 +1,5 @@
 import React from 'react'
 import apiMarkdown from 'html-loader!markdown-loader!../../../docs/api.md'
-import Markdown from 'react-markdown'
 
 export default (props) => {
   return (

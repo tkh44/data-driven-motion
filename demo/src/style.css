@@ -25,23 +25,39 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-a {
+a,
+.markdown-body a {
   color: #37b24d;
   text-decoration: none;
   padding: 0 8px;
 }
 
-a:hover {
+a:hover,
+.markdown-body a:hover {
   color: #2b8a3e;
+  text-decoration: none;
 }
 
 .api-docs {
   overflow: auto;
 }
 
-.demo-page-inner {
+.demo-page-inner,
+.home-page-inner {
   max-width: 768px;
   margin: 0 auto;
+}
+
+.home-page-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+}
+
+.home-page-inner li a {
+  font-size: 125%;
 }
 
 .demo-container {
@@ -72,16 +88,6 @@ a:hover {
   right: 0;
   bottom: 0;
 }
-
-
-
-
-
-
-
-
-
-
 
 .image {
   border: 1px solid transparent;
