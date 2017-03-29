@@ -2,11 +2,10 @@ import './style.css'
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
 import { render } from 'react-dom'
-import crate from '../../src'
 
 function run () {
   const Root = require('./App').default
-  render(<Root/>, document.querySelector('#demo'))
+  render(<Root />, document.querySelector('#demo'))
 }
 
 run()

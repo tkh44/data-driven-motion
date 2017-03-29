@@ -26,6 +26,7 @@
     "react": "15.x"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.1",
     "gh-pages": "^0.12.0",
     "github-markdown-css": "^2.5.0",
     "nwb": "0.15.x",
@@ -61,10 +62,12 @@
     "motion"
   ],
   "standard": {
+    "parser": "babel-eslint",
     "ignore": [
       "/dist/",
       "/es/",
-      "/umd/"
+      "/umd/",
+      "/lib"
     ]
   },
   "directories": {

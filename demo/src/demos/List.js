@@ -1,4 +1,4 @@
-import React, { createElement as h, Component, render } from 'react'
+import React, { Component } from 'react'
 import { Motion } from '../../../src'
 import Demo from '../Demo'
 

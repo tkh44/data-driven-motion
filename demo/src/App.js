@@ -1,10 +1,9 @@
 import 'github-markdown-css'
 import React from 'react'
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Link,
-  Redirect,
   matchPath,
   withRouter
 } from 'react-router-dom'
@@ -34,7 +33,7 @@ const ListDemo = crate.asyncCompile({
 })
 
 const AnimationExample = () => (
-  <Router>
+  <Router basename={'/data-driven-motion'}>
     <div className={'full'}>
       <header
         style={{
@@ -63,7 +62,14 @@ const AnimationExample = () => (
             <Link to='/demos'>Demos</Link>
           </li>
           <li><Link to='/docs'>Docs</Link></li>
-          <li><a href='https://github.com/tkh44/data-driven-motion' target={'_blank'}>Github</a></li>
+          <li>
+            <a
+              href='https://github.com/tkh44/data-driven-motion'
+              target={'_blank'}
+            >
+              Github
+            </a>
+          </li>
         </ul>
       </header>
       <AnimatedSwitch style={{ position: 'relative' }}>
@@ -91,7 +97,7 @@ const DemosPage = ({ style }) => (
 const AnimatedSwitch = withRouter(
   class AnimatedSwitch extends React.Component {
     render () {
-      const { children, style } = this.props
+      const { children, route, style } = this.props
       const location = this.props.location || this.context.route.location
       let match, child
       React.Children.forEach(children, element => {
