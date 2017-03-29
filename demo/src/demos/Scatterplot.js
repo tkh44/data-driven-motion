@@ -2,9 +2,9 @@
 import React, { Component, PureComponent } from 'react'
 import { Motion } from '../../../src'
 import Demo from '../Demo'
-import { stack, stackOffsetWiggle, area, line } from 'd3-shape'
+import { stack } from 'd3-shape'
 import { scaleLinear, interpolateCool } from 'd3-scale'
-import { min, max, merge, range, transpose } from 'd3-array'
+import { min, max, range, transpose } from 'd3-array'
 import { randomUniform } from 'd3-random'
 const WOBBLY_SPRING = { stiffness: 150, damping: 15 }
 
@@ -108,7 +108,7 @@ class Layer extends Component {
       opacity: 0,
       r: 0,
       x: this.props.xScale(0),
-      y: this.props.yScale(0)
+      y: this.props.yScale(i % 2 ? this.props.maxY : 0)
     }
   };
 
@@ -121,12 +121,12 @@ class Layer extends Component {
     }
   };
 
-  onRe = ({ key, data, style }) => {
+  onRe = ({ key, data, style }, i) => {
     return {
       opacity: 0,
       r: 0,
       x: this.props.xScale(0),
-      y: this.props.yScale(minY)
+      y: this.props.yScale(i % 2 ? this.props.maxY : 0)
     }
   };
 
@@ -181,7 +181,7 @@ export default class extends Component {
       point.data = {}
       point.radius = randomRadius()
       return point
-    });
+    })
   });
 }
 
