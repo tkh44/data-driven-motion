@@ -162,15 +162,23 @@ export default class extends Component {
     }
   }
 
+  componentDidMount () {
+    this.interval = window.setInterval(() => this.setState({layers: this.generateLayers()}), 1000)
+  }
+
+  componentWillUnmount () {
+    window.clearInterval(this.interval)
+  }
+
   render () {
     return (
       <Demo>
-        <button
-          style={buttonStyle}
-          onClick={() => this.setState({ layers: this.generateLayers() })}
-        >
-          Update
-        </button>
+        {/*<button*/}
+          {/*style={buttonStyle}*/}
+          {/*onClick={() => this.setState({ layers: this.generateLayers() })}*/}
+        {/*>*/}
+          {/*Update*/}
+        {/*</button>*/}
         <Scatterplot layers={this.state.layers} />
       </Demo>
     )
