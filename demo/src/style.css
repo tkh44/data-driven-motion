@@ -60,6 +60,11 @@ a:hover,
   font-size: 125%;
 }
 
+.demo-page-inner h3 > a {
+  font-size: 80%;
+  font-weight: normal;
+}
+
 .demo-container {
   position: relative;
   border-radius: 4px;
@@ -87,52 +92,4 @@ a:hover,
   left: 0;
   right: 0;
   bottom: 0;
-}
-
-.image {
-  border: 1px solid transparent;
-  transition: all 250ms cubic-bezier(0, 0.72, 0, 1.02);
-}
-
-.image:hover {
-  border: 1px solid #6741d9;
-  tranform-origin: center center;
-  z-index: 2;
-  cursor: pointer;
-}
-
-.animate-in .image:hover {
-  border: 1px solid transparent;
-  transform: scale(1);
-}
-
-.animate-in {
-  animation: up-in;
-  animation-duration: 250ms;
-  animation-fill-mode: forwards;
-  animation-timing-function: cubic-bezier(0, 0.72, 0, 1.02);
-  will-change: transform;
-  transform: translate3d(0, 0, -200px) scale(4);
-  opacity: 0.5;
-}
-
-.animate-in:after {
-  position: absolute;
-  top: 32px;
-  right: calc(5%);
-  content: 'Close';
-  color: #6741d9;
-  font-size: 1rem;
-}
-
-@keyframes up-in {
-  from {
-    transform: translate3d(0, 0, -200px);
-    opacity: 0.5;
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
 }

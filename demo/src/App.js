@@ -1,4 +1,3 @@
-
 import React from 'react'
 import {
   HashRouter as Router,
@@ -13,6 +12,7 @@ import { Motion } from '../../src'
 import colors from 'open-color'
 import TrippyDemo from './demos/Trippy'
 import ListDemo from './demos/List'
+import Streamgraph from './demos/Scatterplot'
 
 const WOBBLY_SPRING = { stiffness: 350, damping: 15, precision: 0.1 }
 
@@ -73,11 +73,37 @@ const HomePage = ({ style }) => {
 const DemosPage = ({ style }) => (
   <div style={style} className={'demo-page markdown-body scrollable'}>
     <div className={'demo-page-inner'}>
-      <h2>Demos</h2>
-      <h3>Trippy Perspective</h3>
+      <h3>
+        Scatter Plot
+        <a
+          href='https://github.com/tkh44/data-driven-motion/blob/master/demo/src/demos/Scatterplot.js'
+          target={'_blank'}
+        >
+          Source
+        </a>
+      </h3>
+      <Streamgraph />
+      <hr />
+      <h3>
+        Trippy Perspective
+        <a
+          href='https://github.com/tkh44/data-driven-motion/blob/master/demo/src/demos/Trippy.js'
+          target={'_blank'}
+        >
+          Source
+        </a>
+      </h3>
       <TrippyDemo />
       <hr />
-      <h3>List with multiple layers</h3>
+      <h3>
+        List with multiple layers
+        <a
+          href='https://github.com/tkh44/data-driven-motion/blob/master/demo/src/demos/List.js'
+          target={'_blank'}
+        >
+          Source
+        </a>
+      </h3>
       <ListDemo />
     </div>
   </div>
