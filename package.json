@@ -11,12 +11,13 @@
     "umd"
   ],
   "scripts": {
-    "build": "standard --fix && nwb build-react-component --no-demo",
+    "build": "standard --fix && nwb build-react-component",
     "clean": "nwb clean-module && npm clean-demo",
     "start": "nwb serve-react-demo",
     "test": "standard --fix && nwb test-react",
     "test:coverage": "standard --fix && nwb test-react --coverage",
-    "test:watch": "standard --fix && nwb test-react --server"
+    "test:watch": "standard --fix && nwb test-react --server",
+    "deploy": "npm run build && gh-pages -d demo/dist"
   },
   "dependencies": {
     "react-motion": "^0.4.7"
@@ -25,12 +26,22 @@
     "react": "15.x"
   },
   "devDependencies": {
+    "gh-pages": "^0.12.0",
+    "github-markdown-css": "^2.5.0",
     "nwb": "0.15.x",
+    "open-color": "^1.5.1",
     "prettier": "^0.20.0",
+    "raw-loader": "^0.5.1",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
+    "react-crate": "^2.0.0",
     "react-dom": "^15.4.2",
+    "react-loadable": "^3.0.1",
+    "react-markdown": "^2.4.6",
     "react-motion": "^0.4.7",
+    "react-router-dom": "^4.0.0",
+    "rebass": "^0.4.0-beta.9",
+    "recompose": "^0.22.0",
     "standard": "^9.0.0"
   },
   "author": "Kye Hohenberger",

@@ -1,0 +1,132 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: #f8f9fa;
+  color: #343a40;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#demo,
+.full {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollable {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+a {
+  color: #37b24d;
+  text-decoration: none;
+  padding: 0 8px;
+}
+
+a:hover {
+  color: #2b8a3e;
+}
+
+.api-docs {
+  overflow: auto;
+}
+
+.demo-page-inner {
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+.demo-container {
+  position: relative;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+
+}
+
+.demo-container:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 56.25%;
+}
+
+.demo-container.tall:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 100%;
+}
+
+.demo-container > .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+.image {
+  border: 1px solid transparent;
+  transition: all 250ms cubic-bezier(0, 0.72, 0, 1.02);
+}
+
+.image:hover {
+  border: 1px solid #6741d9;
+  tranform-origin: center center;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.animate-in .image:hover {
+  border: 1px solid transparent;
+  transform: scale(1);
+}
+
+.animate-in {
+  animation: up-in;
+  animation-duration: 250ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0, 0.72, 0, 1.02);
+  will-change: transform;
+  transform: translate3d(0, 0, -200px) scale(4);
+  opacity: 0.5;
+}
+
+.animate-in:after {
+  position: absolute;
+  top: 32px;
+  right: calc(5%);
+  content: 'Close';
+  color: #6741d9;
+  font-size: 1rem;
+}
+
+@keyframes up-in {
+  from {
+    transform: translate3d(0, 0, -200px);
+    opacity: 0.5;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
