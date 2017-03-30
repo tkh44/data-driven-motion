@@ -75,7 +75,7 @@ const DemosPage = ({ style }) => (
   <div style={style} className={'demo-page markdown-body scrollable'}>
     <div className={'demo-page-inner'}>
       <h3>
-        Scatter Plot (1 - 1k elements)
+        Scatter Plot (1 - 500 elements)
         <a
           href='https://github.com/tkh44/data-driven-motion/blob/master/demo/src/demos/Scatterplot.js'
           target={'_blank'}
@@ -134,7 +134,7 @@ const AnimationExample = () => (
           height: 48
         }}
       >
-        <h1 style={{ color: colors.green[6] }}>
+        <h1 className={'header-headline'} style={{ color: colors.green[6] }}>
           <Link to='/'>data-driven-motion</Link>
         </h1>
         <ul
