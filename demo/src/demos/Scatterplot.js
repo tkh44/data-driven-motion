@@ -124,7 +124,7 @@ export default class extends Component {
   componentDidMount () {
     this.interval = window.setInterval(
       () => {
-        return this.setState({ points: this.generateLayers(randomUniform(1, 1000)() | 0) })
+        return this.setState({ points: this.generateLayers(randomUniform(1, 500)() | 0) })
       },
       1000
     )

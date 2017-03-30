@@ -12,7 +12,8 @@ import { Motion } from '../../src'
 import colors from 'open-color'
 import TrippyDemo from './demos/Trippy'
 import ListDemo from './demos/List'
-import Streamgraph from './demos/Scatterplot'
+import Scatterplot from './demos/Scatterplot'
+import Slider from './demos/Slider'
 
 const WOBBLY_SPRING = { stiffness: 350, damping: 15, precision: 0.1 }
 
@@ -82,7 +83,18 @@ const DemosPage = ({ style }) => (
           Source
         </a>
       </h3>
-      <Streamgraph />
+      <Scatterplot />
+      <hr />
+      <h3>
+        Slider
+        <a
+          href='https://github.com/tkh44/data-driven-motion/blob/master/demo/src/demos/Slider.js'
+          target={'_blank'}
+        >
+          Source
+        </a>
+      </h3>
+      <Slider />
       <hr />
       <h3>
         Trippy Perspective
