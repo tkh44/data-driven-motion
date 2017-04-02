@@ -13,6 +13,7 @@ import colors from 'open-color'
 import TrippyDemo from './demos/Trippy'
 import ListDemo from './demos/List'
 import Scatterplot from './demos/Scatterplot'
+import America from './demos/America'
 import Slider from './demos/Slider'
 
 const WOBBLY_SPRING = { stiffness: 350, damping: 15, precision: 0.1 }
@@ -74,6 +75,17 @@ const HomePage = ({ style }) => {
 const DemosPage = ({ style }) => (
   <div style={style} className={'demo-page markdown-body scrollable'}>
     <div className={'demo-page-inner'}>
+      <h3>
+        SVG Path Transformation
+        <a
+          href='https://github.com/tkh44/data-driven-motion/blob/master/demo/src/demos/America.js'
+          target={'_blank'}
+        >
+          Source
+        </a>
+      </h3>
+      <America />
+      <hr />
       <h3>
         Scatter Plot (1 - 500 elements)
         <a

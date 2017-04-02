@@ -168,5 +168,6 @@ const buttonStyle = {
   lineHeight: 2.5,
   paddingLeft: 16,
   paddingRight: 16,
+  border: 'none',
   outline: 'none'
 }

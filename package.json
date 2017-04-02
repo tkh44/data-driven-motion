@@ -46,6 +46,7 @@
     "react-loadable": "^3.0.1",
     "react-motion": "^0.4.7",
     "react-router-dom": "^4.0.0",
+    "react-svg-morph": "^0.1.10",
     "rebass": "^0.4.0-beta.9",
     "recompose": "^0.22.0",
     "standard": "^9.0.0"
@@ -66,19 +67,20 @@
     "driven",
     "motion"
   ],
-  "standard": {
-    "parser": "babel-eslint",
-    "ignore": [
-      "/dist/",
-      "/es/",
-      "/umd/",
-      "/lib"
-    ]
-  },
   "directories": {
     "test": "test"
   },
   "bugs": {
     "url": "https://github.com/tkh44/data-driven-motion/issues"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "/dist/",
+      "/es/",
+      "/lib/",
+      "/umd/",
+      "/demo/dist/"
+    ]
   }
 }
