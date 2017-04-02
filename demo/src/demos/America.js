@@ -109,7 +109,7 @@ export default class extends Component {
         />
         <button
           style={buttonStyle}
-          onClick={() => this.setState(prev => ({ val: (prev.val + 1) % 2 }))}
+          onClick={() => this.setState(prev => ({ val: prev.val === 0 ? 1 : 0 }))}
         >
           Toggle
         </button>
