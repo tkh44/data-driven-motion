@@ -55,8 +55,6 @@ class Patriot extends Component {
         getKey={this.getKey}
         onComponentMount={this.onCpm}
         onRender={this.onRender}
-        onRemount={this.onRe}
-        onUnmount={this.onUn}
         render={this.renderAmerica}
       />
     )
