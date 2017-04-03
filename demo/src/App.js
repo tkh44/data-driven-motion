@@ -15,6 +15,7 @@ import ListDemo from './demos/List'
 import Scatterplot from './demos/Scatterplot'
 import America from './demos/America'
 import Slider from './demos/Slider'
+import ColorSearch from './demos/ColorSearch'
 
 const WOBBLY_SPRING = { stiffness: 350, damping: 15, precision: 0.1 }
 
@@ -107,6 +108,17 @@ const DemosPage = ({ style }) => (
         </a>
       </h3>
       <Slider />
+      <hr />
+      <h3>
+        Color Search
+        <a
+          href='https://github.com/tkh44/data-driven-motion/blob/master/demo/src/demos/ColorSearch.js'
+          target={'_blank'}
+        >
+          Source
+        </a>
+      </h3>
+      <ColorSearch />
       <hr />
       <h3>
         Trippy Perspective

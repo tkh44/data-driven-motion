@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",
+    "color-name": "^1.1.2",
     "d3-array": "^1.1.1",
     "d3-random": "^1.0.3",
     "d3-scale": "^1.0.5",
@@ -49,6 +50,7 @@
     "react-svg-morph": "^0.1.10",
     "rebass": "^0.4.0-beta.9",
     "recompose": "^0.22.0",
+    "rgb-to-hsl": "0.0.3",
     "standard": "^9.0.0"
   },
   "author": "Kye Hohenberger",
