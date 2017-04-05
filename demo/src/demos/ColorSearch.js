@@ -143,19 +143,3 @@ export default () => (
     <ColorSearch />
   </Demo>
 )
-
-const buttonStyle = {
-  position: 'absolute',
-  top: 8,
-  right: 8,
-  backgroundColor: 'transparent',
-  color: '#37b24d',
-  fontWeight: 'bold',
-  borderRadius: 4,
-  height: 32,
-  lineHeight: 2.5,
-  paddingLeft: 16,
-  paddingRight: 16,
-  outline: 'none',
-  border: '1px solid #37b24d'
-}

@@ -105,11 +105,13 @@ export default class extends Component {
           max={100}
           step={1}
           value={this.state.val * 100}
-          onChange={({target: {value}}) => this.setState({val: value / 100})}
+          onChange={({ target: { value } }) =>
+            this.setState({ val: value / 100 })}
         />
         <button
           style={buttonStyle}
-          onClick={() => this.setState(prev => ({ val: prev.val === 0 ? 1 : 0 }))}
+          onClick={() =>
+            this.setState(prev => ({ val: prev.val === 0 ? 1 : 0 }))}
         >
           Toggle
         </button>
