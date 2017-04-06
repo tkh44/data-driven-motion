@@ -4,9 +4,10 @@ import Demo from '../Demo'
 import colorMap from 'color-name'
 import rgbToHsl from 'rgb-to-hsl'
 
-const STIFF_SPRING = { stiffness: 500, damping: 45 }
-const colors = Object.keys(colorMap).map(name => ({
+const STIFF_SPRING = { stiffness: 320, damping: 20, precision: 1 }
+const colors = Object.keys(colorMap).map((name, i) => ({
   name,
+  index: i,
   rgb: colorMap[name],
   hsl: rgbToHsl(...colorMap[name])
 }))
@@ -52,7 +53,6 @@ class ColorList extends Component {
           <div
             style={{
               position: 'relative',
-              listStyle: 'none',
               padding: 0,
               paddingLeft: 8,
               paddingRight: 8,
@@ -73,49 +73,43 @@ class ColorList extends Component {
   getKey = (data, i) => data.name;
 
   onComponentMount = (data, i) => ({
-    height: 32,
-    h: 0,
+    width: 36,
     o: 0
   });
 
   onRender = (data, i, spring) => ({
-    height: spring(32, STIFF_SPRING),
-    h: spring(data.hsl[0], STIFF_SPRING),
+    width: spring(36, STIFF_SPRING),
     o: spring(1, STIFF_SPRING)
   });
 
   onRemount = ({ key, data, style }) => {
     return {
-      height: 0,
-      h: 0,
+      width: 18,
       o: 0
     }
   };
 
   onUnmount = ({ key, data, style }, spring) => {
     return {
-      height: spring(0, STIFF_SPRING),
-      h: data.hsl[0],
-      o: spring(0, STIFF_SPRING)
+      width: spring(30, STIFF_SPRING),
+      o: 0
     }
   };
 
-  renderColorSearch = (key, data, { height, h, o }) => {
+  renderColorSearch = (key, data, { width, o }) => {
     return (
       <div
         key={key}
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height,
-          fontSize: height / 2,
+          display: 'inline-block',
+          width,
+          height: 36,
           opacity: o,
-          backgroundColor: `hsl(${h}, ${data.hsl[1]}, ${data.hsl[2]})`,
+          margin: 2,
+          backgroundColor: `hsl(${data.hsl[0]}, ${data.hsl[1]}, ${data.hsl[2]})`,
           borderRadius: 4
         }}
       >
-        {data.name}
       </div>
     )
   };
@@ -123,6 +117,7 @@ class ColorList extends Component {
 
 class ColorSearch extends Component {
   state = { colorName: '' };
+  frameId = null
 
   render () {
     return (
@@ -134,12 +129,18 @@ class ColorSearch extends Component {
   }
 
   handleInputChange = ({ target: { value: colorName } }) => {
-    this.setState(() => ({ colorName }))
+    if (this.frameId) {
+      window.cancelAnimationFrame(this.frameId)
+    }
+    this.frameId = window.requestAnimationFrame(() => {
+      this.setState(() => ({ colorName }))
+      this.frameId = null
+    })
   };
 }
 
 export default () => (
-  <Demo tall>
+  <Demo>
     <ColorSearch />
   </Demo>
 )
