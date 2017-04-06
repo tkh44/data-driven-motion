@@ -4,7 +4,7 @@ import Demo from '../Demo'
 import colorMap from 'color-name'
 import rgbToHsl from 'rgb-to-hsl'
 
-const STIFF_SPRING = { stiffness: 320, damping: 20, precision: 1 }
+const STIFF_SPRING = { stiffness: 200, damping: 20 }
 const colors = Object.keys(colorMap).map((name, i) => ({
   name,
   index: i,
@@ -34,6 +34,7 @@ class Input extends Component {
           paddingBottom: 4,
           paddingLeft: 4,
           margin: 8,
+          height: 39,
           width: 'calc(100% - 16px)'
         }}
       />
@@ -43,16 +44,17 @@ class Input extends Component {
 
 class ColorList extends Component {
   render () {
-    const { colorName } = this.props
-    const data = colors.filter(({ name }) => name.includes(colorName))
-
     return (
       <Motion
-        data={data}
+        data={this.props.data}
         component={
           <div
             style={{
               position: 'relative',
+              display: 'flex',
+              width: '100%',
+              height: 'calc(100% - 55px)',
+              overflow: 'hidden',
               padding: 0,
               paddingLeft: 8,
               paddingRight: 8,
@@ -64,8 +66,7 @@ class ColorList extends Component {
         onComponentMount={this.onComponentMount}
         onRender={this.onRender}
         onRemount={this.onRemount}
-        onUnmount={this.onUnmount}
-        render={this.renderColorSearch}
+        render={this.renderResult}
       />
     )
   }
@@ -73,69 +74,60 @@ class ColorList extends Component {
   getKey = (data, i) => data.name;
 
   onComponentMount = (data, i) => ({
-    width: 36,
+    width: 1 / (this.props.data.length / 100),
     o: 0
   });
 
   onRender = (data, i, spring) => ({
-    width: spring(36, STIFF_SPRING),
+    width: data.found
+      ? spring(1 / (this.props.foundCount / 100), STIFF_SPRING)
+      : 0,
     o: spring(1, STIFF_SPRING)
   });
 
-  onRemount = ({ key, data, style }) => {
-    return {
-      width: 18,
-      o: 0
-    }
-  };
-
-  onUnmount = ({ key, data, style }, spring) => {
-    return {
-      width: spring(30, STIFF_SPRING),
-      o: 0
-    }
-  };
-
-  renderColorSearch = (key, data, { width, o }) => {
+  renderResult = (key, data, { width, o }) => {
     return (
       <div
         key={key}
         style={{
-          display: 'inline-block',
-          width,
-          height: 36,
+          flexGrow: '1',
+          flexShrink: '1',
+          flexBasis: 'auto',
+          width: `${width}%`,
+          height: '100%',
           opacity: o,
-          margin: 2,
-          backgroundColor: `hsl(${data.hsl[0]}, ${data.hsl[1]}, ${data.hsl[2]})`,
-          borderRadius: 4
+          marginTop: 2,
+          marginBottom: 2,
+          backgroundColor: `hsla(${data.hsl[0]}, ${data.hsl[1]}, ${data.hsl[2]}, 1)`,
+          borderRadius: 0
         }}
-      >
-      </div>
+      />
     )
   };
 }
 
 class ColorSearch extends Component {
   state = { colorName: '' };
-  frameId = null
 
   render () {
+    const { colorName } = this.state
+    let foundCount = 0
+    const data = colors.map(color => {
+      const found = color.name.includes(colorName)
+      if (found) ++foundCount
+      return { ...color, found }
+    })
+
     return (
       <div style={{ width: '100%', height: '100%', overflow: 'auto' }}>
-        <Input value={this.state.colorName} onChange={this.handleInputChange} />
-        <ColorList colorName={this.state.colorName} />
+        <Input value={colorName} onChange={this.handleInputChange} />
+        <ColorList data={data} foundCount={foundCount} />
       </div>
     )
   }
 
   handleInputChange = ({ target: { value: colorName } }) => {
-    if (this.frameId) {
-      window.cancelAnimationFrame(this.frameId)
-    }
-    this.frameId = window.requestAnimationFrame(() => {
-      this.setState(() => ({ colorName }))
-      this.frameId = null
-    })
+    this.setState(() => ({colorName}))
   };
 }
 
