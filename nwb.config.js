@@ -8,5 +8,11 @@ module.exports = {
         react: 'React'
       }
     }
+  },
+  webpack: {
+    aliases: {
+      'react': 'preact-compat',
+      'react-dom': 'preact-compat'
+    }
   }
 }
