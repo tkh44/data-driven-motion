@@ -1,8 +1,10 @@
-import { PureComponent, PropTypes, cloneElement, createElement as h } from 'react'
-import TransitionMotion from 'react-motion/lib/TransitionMotion'
-import spring from 'react-motion/lib/spring'
+import React from 'react'
+import PropTypes from 'prop-types'
+import {TransitionMotion, spring} from 'react-motion'
 
-export class Motion extends PureComponent {
+const h = React.createElement
+
+export class Motion extends React.PureComponent {
   constructor (props) {
     super(props)
 
@@ -15,10 +17,12 @@ export class Motion extends PureComponent {
   }
 
   render () {
-    const { data, onRemount, onUnmount, onComponentMount } = this.props
+    const {data, onRemount, onUnmount, onComponentMount} = this.props
 
     return h(TransitionMotion, {
-      defaultStyles: data.length && onComponentMount ? this.getDefaultStyles() : undefined,
+      defaultStyles: data.length && onComponentMount
+        ? this.getDefaultStyles()
+        : undefined,
       styles: this.getStyles(),
       willEnter: onRemount && this.willEnter,
       willLeave: onUnmount && this.willLeave,
@@ -27,7 +31,7 @@ export class Motion extends PureComponent {
   }
 
   renderCurrentStyles (currentStyles) {
-    const { component, render } = this.props
+    const {component, render} = this.props
     let children
     if (Array.isArray(render)) {
       // If render is an array, children becomes and array of arrays.
@@ -36,28 +40,24 @@ export class Motion extends PureComponent {
       for (let i = 0; i < render.length; ++i) {
         children[i] = new Array(currentStyles.length)
         for (let j = 0; j < currentStyles.length; ++j) {
-          const { key, data, style } = currentStyles[j]
+          const {key, data, style} = currentStyles[j]
           children[i][j] = render[i](key, data, style, j, i)
         }
       }
     } else {
       children = new Array(currentStyles.length)
       for (let j = 0; j < currentStyles.length; ++j) {
-        const { key, data, style } = currentStyles[j]
+        const {key, data, style} = currentStyles[j]
         children[j] = render(key, data, style, j, 0)
       }
     }
 
-    return cloneElement(component, {}, children)
+    return React.cloneElement(component, {}, children)
   }
 
   getKey (data, i) {
-    const { getKey } = this.props
-    if (typeof getKey === 'function') {
-      return getKey(data, i)
-    }
-
-    return getKey
+    const {getKey} = this.props
+    return getKey(data, i)
   }
 
   getDefaultStyles () {
@@ -99,11 +99,13 @@ export class Motion extends PureComponent {
   }
 
   willEnter (config) {
-    return this.props.onRemount(config)
+    const {onRemount} = this.props
+    return onRemount(config)
   }
 
   willLeave (config) {
-    return this.props.onUnmount(config, spring)
+    const {onUnmount} = this.props
+    return onUnmount(config, spring)
   }
 }
 
@@ -125,7 +127,10 @@ Motion.propTypes = {
   //
   // If an array is provided it will render the resulting elements in order.
   // This is useful for creating animated layers.
-  render: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)]),
+  render: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.arrayOf(PropTypes.func)
+  ]),
 
   // (data, i) => string
   // help identify which items have been changed, added, or are removed

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ddm renders elements with styles 1`] = `
+<ul
+  style={
+    Object {
+      "padding": 8,
+    }
+  }
+>
+  <li
+    style={
+      Object {
+        "left": 5,
+        "top": 5,
+      }
+    }
+  >
+    Arrow
+  </li>
+  <li
+    style={
+      Object {
+        "left": 14,
+        "top": 55,
+      }
+    }
+  >
+    River
+  </li>
+</ul>
+`;
