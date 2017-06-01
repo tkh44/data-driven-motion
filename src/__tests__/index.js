@@ -7,6 +7,8 @@ import {Motion} from '../index'
 
 describe('ddm', () => {
   test('renders elements with styles', () => {
+    const getKey = (data, i) => data.name + ' ' + i
+
     const tree = renderer
       .create(
         <Motion
@@ -15,11 +17,10 @@ describe('ddm', () => {
             {name: 'River', left: 14, top: 55}
           ]}
           component={<ul style={{padding: 8}} />}
-          render={(key, data, style) => (
-            <li key={key} style={style}>{data.name}</li>
-          )}
-          getKey={(data, i) => data.name + ' ' + i}
-          onComponentMount={data => ({top: data.top, left: data.left})}
+          render={[(key, data, style, i, j) => (
+            <li key={key} style={style}>{data.name + ' ' + j}</li>
+          )]}
+          getKey={getKey}
           onRender={(data, i, spring) => ({
             top: spring(data.top),
             left: spring(data.left)

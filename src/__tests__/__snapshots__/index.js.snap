@@ -16,7 +16,7 @@ exports[`ddm renders elements with styles 1`] = `
       }
     }
   >
-    Arrow
+    Arrow 0
   </li>
   <li
     style={
@@ -26,7 +26,7 @@ exports[`ddm renders elements with styles 1`] = `
       }
     }
   >
-    River
+    River 0
   </li>
 </ul>
 `;
