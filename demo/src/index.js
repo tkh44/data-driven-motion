@@ -6,7 +6,7 @@ import { render } from 'react-dom'
 
 function run () {
   const Root = require('./App').default
-  render(<Root />, document.querySelector('#demo'))
+  render(<Root />, document.querySelector('#app'))
 }
 
 run()
