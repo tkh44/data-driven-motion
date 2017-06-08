@@ -12,7 +12,7 @@ body {
   flex-direction: column;
 }
 
-#demo,
+#app,
 .full {
   flex: 1;
   width: 100%;
